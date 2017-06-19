@@ -157,7 +157,7 @@
 
     //Add start button once data is loaded
 function startButton(quiz){
-    document.getElementById("startButton").innerHTML = "<button class=\"myButton\" onclick=\"init(); clearForStart();\">Click to start</button>"
+    document.getElementById("startButton").innerHTML = "<button class=\"myButton\" onclick=\"init(); clearForStart();\">Start</button>"
 }
 
 
