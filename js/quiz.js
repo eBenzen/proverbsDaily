@@ -140,7 +140,7 @@
             //add pager
             $(document.createElement('p')).addClass('pager').attr('id','pager').text('Verse 1 of ' + quiz.length).appendTo('#frame');
             //add first question
-            $(document.createElement('h4')).addClass('question').attr('id', 'question').text(quiz[0]['question']+"...").appendTo('#frame');
+            $(document.createElement('p')).addClass('question').attr('id', 'question').text(quiz[0]['question']+"...").appendTo('#frame');
                     
             //questions holder
             $(document.createElement('ul')).attr('id', 'choice-block').appendTo('#frame');
@@ -157,7 +157,7 @@
 
     //Add start button once data is loaded
 function startButton(quiz){
-    document.getElementById("startButton").innerHTML = "<button class=\"myButton\" onclick=\"init(); clearForStart();\">Start</button>"
+    $("#startButton").html("<a onclick=\"init(); clearForStart();\" class=\"btn btn-default btn-lg\"><i class=\"fa fa-play fa-fw\"></i> <span class=\"network-name\">Start</span></a>");
 }
 
 

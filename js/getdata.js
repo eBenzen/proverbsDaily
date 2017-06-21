@@ -1,9 +1,4 @@
-//Generic Function called "onload" in the HTML file
-function startNow(){
-  getDate();
-}
-
-//Step 1: Get the current day of the month
+//Step 1: Get the current day of the month - Call onload
 function getDate(){
   console.log("getDate");
   var d = new Date();
