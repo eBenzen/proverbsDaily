@@ -20,7 +20,7 @@
 
     
     /******* No need to edit below this line *********/
-    var currentquestion = 22, submt=true, picked;
+    var currentquestion = 0, submt=true, picked;
 
    
     /** HTML Encoding function for alt tags and attributes to prevent messy data appearing inside tag attributes.**/
