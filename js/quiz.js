@@ -20,7 +20,7 @@
 
     
     /******* No need to edit below this line *********/
-    var currentquestion = 0, submt=true, picked;
+    var currentquestion = 22, submt=true, picked;
 
    
     /** HTML Encoding function for alt tags and attributes to prevent messy data appearing inside tag attributes.**/
@@ -35,7 +35,8 @@
         if(typeof choices !== "undefined" && $.type(choices) == "array"){
             $('#choice-block').empty();
             for(var i=0;i<choices.length; i++){
-                $(document.createElement('li')).addClass('choice choice-box').attr('data-index', i).text(choices[i]).appendTo('#choice-block');                    
+                $(document.createElement('li')).addClass('btn btn-default choice choice-box').attr('data-index', i).append("<p>"+choices[i]+"</p>").appendTo('#choice-block');
+
             }
         }
     }
@@ -56,7 +57,7 @@
      */
     function processQuestion(choice){
         if(quiz[currentquestion]['choices'][choice] == quiz[currentquestion]['correct']){
-            buildCompletedChapter();
+            //buildCompletedChapter();
             $('.choice').eq(choice).css({'background-color':'#50D943'});
             currentquestion++;
 
@@ -75,21 +76,19 @@
                 $('#submitbutton').html('Check Answer');
                 nextQuestion();//the "next question" is the same since the var currentquestion has not been ++'ed
             });
-        }
-        
-        
+        }   
     }
 
     /**
      * Sets up the event listeners for each button.
      */
     function setupButtons(){
-        $('.choice').on('mouseover', function(){
+        /*$('.choice').on('mouseover', function(){
             $(this).css({'background-color':'#e1e1e1'});
         });
-        $('.choice').on('mouseout', function(){
-            $(this).css({'background-color':'#fff'});
-        })
+       $('.choice').on('mouseout', function(){
+            $(this).css({'background-color':'#e1e1e1'});
+        })*/
         $('.choice').on('click', function(){
             picked = $(this).attr('data-index');
             $('.choice').removeAttr('style').off('mouseout mouseover');
@@ -138,15 +137,16 @@
         //add pager and questions
         if(typeof quiz !== "undefined" && $.type(quiz) === "array"){
             //add pager
-            $(document.createElement('p')).addClass('pager').attr('id','pager').text('Verse 1 of ' + quiz.length).appendTo('#frame');
+            $(document.createElement('p')).addClass('pager').attr('id','pager').text('Verse ' + currentquestion + ' of ' + quiz.length).appendTo('#frame');
+
             //add first question
-            $(document.createElement('p')).addClass('question').attr('id', 'question').text(quiz[0]['question']+"...").appendTo('#frame');
-                    
+            $(document.createElement('p')).addClass('question').attr('id', 'question').append(quiz[currentquestion]['question']+"...").appendTo('#frame');
+                   
             //questions holder
             $(document.createElement('ul')).attr('id', 'choice-block').appendTo('#frame');
         
             //add choices
-            addChoices(quiz[0]['choices']);
+            addChoices(quiz[currentquestion]['choices']);
         
             //add submit button
             $(document.createElement('div')).addClass('choice-box').attr('id', 'submitbutton').text('Check Answer').css({'font-weight':700,'color':'#222','padding':'30px 0'}).appendTo('#frame');

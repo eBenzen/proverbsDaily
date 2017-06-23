@@ -9,7 +9,7 @@ function getDate(){
 //Step 2: Use that day to Make the URL for the api data pull
 function makeURL(day){
 	console.log("makeURL");
-  var url = "https://cors-anywhere.herokuapp.com/https://labs.bible.org/api/?passage=" + book + "%20" + day + "&type=json";
+  var url = "https://cors-anywhere.herokuapp.com/https://labs.bible.org/api/?passage=" + book + "%20" + day + "&type=json&formatting=plain";
   getChapterData(url);
   //reset the future title
   quiztitle = "Proverbs "+ dayOfMonth;
@@ -20,13 +20,9 @@ function makeURL(day){
 function getChapterData(url){
 	console.log("getChapterData");
   $.getJSON(url, function(json) {
-    //bring in the data with stringify
-    var stringData = JSON.stringify(json);
-
-    //convert new string into a usable javascript object
-    var objectData = JSON.parse(stringData);
-    
-    makeQandA(objectData);
+   console.log("json");
+   console.log(json);
+   makeQandA(json);//not sure why this no longer needs the stingify step, the code is at the bottom commented out
   }); 
 }
 
@@ -94,4 +90,19 @@ function shuffledAnswerArray(fullAnswerArray,correctIndex,numberOfAnswers){
 
   return localAbank;
 }
+
+
+
+
+ //bring in the data with stringify
+    /*console.log("json");
+    console.log(json);
+    var stringData = JSON.stringify(json);
+    console.log("stringData");
+    console.log(stringData);
+    //convert new string into a usable javascript object
+    var objectData = JSON.parse(stringData);
+    console.log("objectData");
+    console.log(objectData);
+    makeQandA(objectData);*/
 
