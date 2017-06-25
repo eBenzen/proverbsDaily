@@ -12,7 +12,7 @@ function makeURL(day){
   var url = "https://cors-anywhere.herokuapp.com/https://labs.bible.org/api/?passage=" + book + "%20" + day + "&type=json&formatting=plain";
   getChapterData(url);
   //reset the future title
-  quiztitle = "Proverbs "+ dayOfMonth;
+  quiztitle =  book + " " + dayOfMonth;
 }
 //Api source - http://labs.bible.org/api_web_service  NET Bible
 

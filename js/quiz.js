@@ -35,8 +35,7 @@
         if(typeof choices !== "undefined" && $.type(choices) == "array"){
             $('#choice-block').empty();
             for(var i=0;i<choices.length; i++){
-                $(document.createElement('li')).addClass('btn btn-default choice choice-box').attr('data-index', i).append("<p>"+choices[i]+"</p>").appendTo('#choice-block');
-
+                $(document.createElement('li')).addClass('btn btn-default choice choice-box').attr('data-index', i).append("<span>"+choices[i]+"</span>").appendTo('#choice-block');
             }
         }
     }
@@ -45,7 +44,7 @@
     function nextQuestion(){
         submt = true;
         $('#question').text(quiz[currentquestion]['question']);
-        $('#pager').text('Verse ' + Number(currentquestion + 1) + ' of ' + quiz.length);
+        $('#pager').text(book + ' ' + dayOfMonth + ': ' + (currentquestion+1) + ' of ' + quiz.length);
         addChoices(quiz[currentquestion]['choices']);
         setupButtons();
     }
@@ -58,7 +57,7 @@
     function processQuestion(choice){
         if(quiz[currentquestion]['choices'][choice] == quiz[currentquestion]['correct']){
             //buildCompletedChapter();
-            $('.choice').eq(choice).css({'background-color':'#50D943'});
+            $('.choice').eq(choice).css({'background-color':'#55a047'});
             currentquestion++;
 
             //if correct procced as normal
@@ -66,12 +65,12 @@
             if(currentquestion == quiz.length){
                 endQuiz();
             } else {
-                $(this).text('Check Answer').css({'color':'#222'}).off('click');
+                $(this).text('Check Answer')./*css({'color':'#222'}).*/off('click');
                 nextQuestion();
             }
         })
         } else {//redo the same questions (this is not a competition)
-            $('.choice').eq(choice).css({'background-color':'#D92623'});
+            $('.choice').eq(choice).css({'background-color':'#bc1512'});
             $('#submitbutton').html('Redo &raquo;').on('click', function(){
                 $('#submitbutton').html('Check Answer');
                 nextQuestion();//the "next question" is the same since the var currentquestion has not been ++'ed
@@ -92,10 +91,10 @@
         $('.choice').on('click', function(){
             picked = $(this).attr('data-index');
             $('.choice').removeAttr('style').off('mouseout mouseover');
-            $(this).css({'border-color':'#222','font-weight':700,'background-color':'#c1c1c1'});
+            $(this).css({'color':'black','background-color':'#FFB81C'});
             if(submt){
                 submt=false;
-                $('#submitbutton').css({'color':'#000'}).on('click', function(){
+                $('#submitbutton')./*css({'color':'#000'}).*/on('click', function(){
                     $('.choice').off('click');
                     $(this).off('click');
                     processQuestion(picked);
@@ -109,10 +108,11 @@
      */
     function endQuiz(){
         $('#frame').empty();
-        $(document.createElement('h4')).text("Enjoy this wisdom today and see you tomorrow!").appendTo('#thankYou');
-        $(document.createElement('p')).text("Scroll to the bottom or refresh to restart").appendTo('#restartMessage');
+        $(document.createElement('h4')).text("Enjoy this wisdom today and see you tomorrow!").appendTo('#frame');
+        $(document.createElement('p')).html("Please visit Proverb Daily's <a class=\"page-scroll\" href=\"#download\">Facebook Community</a> to share the fruit of this experience with others spending time in the Proverbs.").appendTo('#frame');
+
         //$('#question').empty();        $('#choice-block').empty();        $('#submitbutton').remove();
-        $(document.createElement('h2')).text(book + dayOfMonth).appendTo('#finalChapterTitle');
+        //$(document.createElement('h2')).text(book + dayOfMonth).appendTo('#finalChapterTitle');
         
         //add the restart button to redo the quiz
         restartButton();
@@ -129,7 +129,7 @@
     function init(){
         //add title
         if(typeof quiztitle !== "undefined" && $.type(quiztitle) === "string"){
-            $(document.createElement('h2')).text(quiztitle).appendTo('#frame');
+            //$(document.createElement('h2')).text(quiztitle).appendTo('#frame');
         } else {
             $(document.createElement('h4')).text("Quiz").appendTo('#frame');
         }
@@ -137,7 +137,7 @@
         //add pager and questions
         if(typeof quiz !== "undefined" && $.type(quiz) === "array"){
             //add pager
-            $(document.createElement('p')).addClass('pager').attr('id','pager').text('Verse ' + currentquestion + ' of ' + quiz.length).appendTo('#frame');
+            $(document.createElement('p')).addClass('pager').attr('id','pager').text(book + ' ' + dayOfMonth + ': ' + (currentquestion+1) + ' of ' + quiz.length).appendTo('#frame');
 
             //add first question
             $(document.createElement('p')).addClass('question').attr('id', 'question').append(quiz[currentquestion]['question']+"...").appendTo('#frame');
@@ -149,7 +149,7 @@
             addChoices(quiz[currentquestion]['choices']);
         
             //add submit button
-            $(document.createElement('div')).addClass('choice-box').attr('id', 'submitbutton').text('Check Answer').css({'font-weight':700,'color':'#222','padding':'30px 0'}).appendTo('#frame');
+            $(document.createElement('div')).addClass('btn btn-default choice-box').attr('id', 'submitbutton').text('Check Answer').css({'font-weight':600,'padding':'10px'}).appendTo('#frame');
         
             setupButtons();
         }
@@ -170,6 +170,8 @@ function restart(){
 }
 
 function restartButton(){
-  document.getElementById("restartButton").innerHTML = "<button class=\"myButton\" onclick=\"restart();\">Click to Restart</button>"
+  $(document.createElement('div')).html("<button class=\"btn btn-default myButton\" onclick=\"restart();\"><i class=\"fa fa-refresh\"></i> Restart</button>").appendTo('#frame');
+  //document.getElementById("restartButton").innerHTML = "<button class=\"myButton\" onclick=\"restart();\">Click to Restart</button>"
+
 }
 
